@@ -1,7 +1,7 @@
 .tile-canvas {
     display: flex;
     justify-content: center;
-    height: 97.8vh;
+    height: 95vh;
     margin: 0;
     background-color: #dedcdca5;
     overflow: hidden !important;

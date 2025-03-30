@@ -1,7 +1,9 @@
+<div style=" display: flex;  flex-direction: row-reverse;margin-right: 30px;" >
+  <mat-icon (click)="resetZoom()" style="font-size: 28px;color: rgb(13, 53, 53); background-color: cadetblue;">  refresh</mat-icon>
+  <mat-icon (click)="zoomOut()" style="font-size: 30px;color: rgb(13, 53, 53); background-color: cadetblue;">zoom_out</mat-icon>
+  <mat-icon (click)="zoomIn()" style="font-size: 30px;color: rgb(13, 53, 53); background-color: cadetblue;">zoom_in</mat-icon>
+</div>
 
-<mat-icon (click)="zoomIn()" style="font-size: 30px;color: rgb(13, 53, 53);">zoom_in</mat-icon>
-<mat-icon (click)="zoomOut()" style="font-size: 30px;color: rgb(13, 53, 53);">zoom_out</mat-icon>
-<mat-icon (click)="resetZoom()" style="font-size: 28px;color: rgb(13, 53, 53);">  refresh</mat-icon>
 <mat-grid-list  cols="2" rowHeight="96vh" gutterSize="10px">
   <mat-grid-tile>
     <app-view-tile1 class="tile-canvas" [isResetZoom]="isResetZoom"></app-view-tile1>
