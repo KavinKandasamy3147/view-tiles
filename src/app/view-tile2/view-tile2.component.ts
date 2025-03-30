@@ -21,27 +21,25 @@ export class ViewTile2Component implements AfterViewInit,OnDestroy {
  constructor(private viewTileService: ViewTileService){}
   ngAfterViewInit() {
     this.viewTile2();
-    window.addEventListener('wheel', this.onMouseWheel);
-    window.addEventListener('mousedown', this.onMouseDown);
-    window.addEventListener('mousemove', this.onMouseMove);
-    window.addEventListener('mouseup', this.onMouseUp);
+      window.addEventListener('wheel', this.onMouseWheel);
+      window.addEventListener('mousedown', this.onMouseDown);
+      window.addEventListener('mousemove', this.onMouseMove);
+      window.addEventListener('mouseup', this.onMouseUp);
 
     this.viewTileService.zoomLevel$.subscribe((X)=>{
       this.isResetZoom = X;
       if(this.isResetZoom == true){
-        if(this.isResetZoom ==true)
-          this.camera.fov = this.maxFov ;
+        this.camera.fov = this.maxFov ;
         this.camera.updateProjectionMatrix();
-
       }
     });
  }
 
   viewTile2() {
-    const width = this.rendererCanvas2.nativeElement.clientWidth;
-    const height = this.rendererCanvas2.nativeElement.clientHeight
+    const width = window.innerWidth;
+    const height = window.innerHeight;
     const scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera( 75, width/ height, 0.1, 100000 );
+    this.camera = new THREE.PerspectiveCamera( 75, width/ height, 0.1, 10000);
     
     const renderer = new THREE.WebGLRenderer({
       canvas: this.rendererCanvas2.nativeElement,
@@ -61,11 +59,6 @@ export class ViewTile2Component implements AfterViewInit,OnDestroy {
 
     const controls = new OrbitControls(this.camera,renderer.domElement);
     controls.enableRotate = false;
-    
-    controls.update();
-    this.viewTileService.zoomLevel.subscribe((x:any)=>{
-     this.camera.position.z = x
-    });
 
     const animate = ()=> {    
       requestAnimationFrame(animate)
@@ -76,12 +69,17 @@ export class ViewTile2Component implements AfterViewInit,OnDestroy {
     this.viewTileService.zoomLevel.subscribe((x:any)=>{
       this.camera.position.z = x
      });
+
+     controls.update();
+     this.viewTileService.zoomLevel.subscribe((x:any)=>{
+      this.camera.position.z = x
+     });
 }
 onMouseWheel = (event: WheelEvent) => {
   let newFov = this.camera.fov + event.deltaY * 0.05;
   if (newFov >= 15 && newFov <= this.maxFov) {
-    this.camera.fov = newFov;
-    console.log(this.camera.fov);
+  this.camera.fov = newFov;
+      console.log(this.camera.fov);
     this.camera.updateProjectionMatrix();
   }
 };

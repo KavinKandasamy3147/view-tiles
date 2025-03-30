@@ -33,7 +33,6 @@ export class ViewTile1Component implements AfterViewInit,OnChanges,OnDestroy{
     this.viewTileService.zoomLevel$.subscribe((X)=>{
       this.isResetZoom = X;
       if(this.isResetZoom == true){
-        if(this.isResetZoom ==true)
           this.camera.fov = this.maxFov ;
         this.camera.updateProjectionMatrix();
 

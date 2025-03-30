@@ -9,7 +9,6 @@ import { ViewTileService } from './service/view-tile1.service';
 export class AppComponent implements OnInit{
   panZoomLevel!:number;
   defaultZoomLevel=5;
-  isResetZoom: boolean = false;
   constructor(private viewTileService: ViewTileService ){
   }
   ngOnInit(){
