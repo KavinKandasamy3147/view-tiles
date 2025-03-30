@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ViewTileService } from '../service/view-tile1.service';
@@ -7,8 +7,9 @@ import { ViewTileService } from '../service/view-tile1.service';
   templateUrl: './view-tile1.component.html',
   styleUrls: ['./view-tile1.component.css']
 })
-export class ViewTile1Component implements AfterViewInit,OnDestroy{
+export class ViewTile1Component implements AfterViewInit,OnChanges,OnDestroy{
   @ViewChild('rendererCanvas1',{static:true})rendererCanvas1!: ElementRef<HTMLElement>;
+  @Input() isResetZoom!: boolean;
   camera!: THREE.PerspectiveCamera;
   minFov = 10;
   maxFov = 75;
@@ -18,6 +19,9 @@ export class ViewTile1Component implements AfterViewInit,OnDestroy{
   mesh!: THREE.Mesh;
 
   constructor(private viewTileService: ViewTileService){}
+  ngOnChanges(changes: SimpleChanges) {
+   
+  }
 
   ngAfterViewInit() {
     this.viewTile1();
@@ -26,6 +30,15 @@ export class ViewTile1Component implements AfterViewInit,OnDestroy{
     window.addEventListener('mousemove', this.onMouseMove);
     window.addEventListener('mouseup', this.onMouseUp);
 
+    this.viewTileService.zoomLevel$.subscribe((X)=>{
+      this.isResetZoom = X;
+      if(this.isResetZoom == true){
+        if(this.isResetZoom ==true)
+          this.camera.fov = this.maxFov ;
+        this.camera.updateProjectionMatrix();
+
+      }
+    });
  }
 
   viewTile1() {

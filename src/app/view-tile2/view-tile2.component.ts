@@ -17,6 +17,7 @@ export class ViewTile2Component implements AfterViewInit,OnDestroy {
   prevMouseY = 0;
   isDragging = false;
   mesh!: THREE.Mesh;
+  isResetZoom!: boolean;
  constructor(private viewTileService: ViewTileService){}
   ngAfterViewInit() {
     this.viewTile2();
@@ -24,6 +25,16 @@ export class ViewTile2Component implements AfterViewInit,OnDestroy {
     window.addEventListener('mousedown', this.onMouseDown);
     window.addEventListener('mousemove', this.onMouseMove);
     window.addEventListener('mouseup', this.onMouseUp);
+
+    this.viewTileService.zoomLevel$.subscribe((X)=>{
+      this.isResetZoom = X;
+      if(this.isResetZoom == true){
+        if(this.isResetZoom ==true)
+          this.camera.fov = this.maxFov ;
+        this.camera.updateProjectionMatrix();
+
+      }
+    });
  }
 
   viewTile2() {
