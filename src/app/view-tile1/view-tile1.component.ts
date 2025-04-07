@@ -2,12 +2,13 @@ import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, OnIn
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ViewTileService } from '../service/view-tile1.service';
+import * as L from 'leaflet'
 @Component({
   selector: 'app-view-tile1',
   templateUrl: './view-tile1.component.html',
   styleUrls: ['./view-tile1.component.css']
 })
-export class ViewTile1Component implements AfterViewInit,OnChanges,OnDestroy{
+export class ViewTile1Component implements AfterViewInit,OnChanges,OnInit,OnDestroy{
   @ViewChild('rendererCanvas1',{static:true})rendererCanvas1!: ElementRef<HTMLElement>;
   @Input() isResetZoom!: boolean;
   camera!: THREE.PerspectiveCamera;
@@ -19,25 +20,36 @@ export class ViewTile1Component implements AfterViewInit,OnChanges,OnDestroy{
   mesh!: THREE.Mesh;
 
   constructor(private viewTileService: ViewTileService){}
+  private map!: L.Map; // Declare map variable
+
+  ngOnInit(): void {
+    this.initMap();
+  }
+
+  private initMap(): void {
+    this.map = L.map('map').setView([0, 0], 1); // Center at (0,0) with zoom 1
+
+    L.tileLayer('http://3.13.59.127/colo-a-l1/{z}/{x}/{y}.png').addTo(this.map);
+  }
   ngOnChanges(changes: SimpleChanges) {
    
   }
 
   ngAfterViewInit() {
-    this.viewTile1();
-    window.addEventListener('wheel', this.onMouseWheel);
-    window.addEventListener('mousedown', this.onMouseDown);
-    window.addEventListener('mousemove', this.onMouseMove);
-    window.addEventListener('mouseup', this.onMouseUp);
+    // this.viewTile1();
+    // window.addEventListener('wheel', this.onMouseWheel);
+    // window.addEventListener('mousedown', this.onMouseDown);
+    // window.addEventListener('mousemove', this.onMouseMove);
+    // window.addEventListener('mouseup', this.onMouseUp);
 
-    this.viewTileService.zoomLevel$.subscribe((X)=>{
-      this.isResetZoom = X;
-      if(this.isResetZoom == true){
-          this.camera.fov = this.maxFov ;
-        this.camera.updateProjectionMatrix();
+    // this.viewTileService.zoomLevel$.subscribe((X)=>{
+    //   this.isResetZoom = X;
+    //   if(this.isResetZoom == true){
+    //       this.camera.fov = this.maxFov ;
+    //     this.camera.updateProjectionMatrix();
 
-      }
-    });
+    //   }
+    // });
  }
 
   viewTile1() {
