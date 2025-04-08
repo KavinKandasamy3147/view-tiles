@@ -8,16 +8,10 @@ export class ViewTileService {
 
   constructor() { }
 
-  private zoom = new BehaviorSubject<number>(5);
-  zoomLevel = this.zoom.asObservable();
+  private zoomLevelSource = new BehaviorSubject<number>(1);
+  zoomLevel$ = this.zoomLevelSource.asObservable();
 
-  private zoomSubject = new BehaviorSubject<boolean>(false); 
-  zoomLevel$ = this.zoomSubject.asObservable();
-  setZoomLevel(value: number){
-    this.zoom.next(value);
-  }
-
-  defaultZoom(value: boolean){
-    this.zoomSubject.next(value)
+  setZoomLevel(level: number): void {
+    this.zoomLevelSource.next(level);
   }
 }

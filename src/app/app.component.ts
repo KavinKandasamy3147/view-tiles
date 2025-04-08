@@ -12,24 +12,25 @@ export class AppComponent implements OnInit{
   constructor(private viewTileService: ViewTileService ){
   }
   ngOnInit(){
-    this.viewTileService.zoomLevel.subscribe((x:any)=>{
+    this.viewTileService.zoomLevel$.subscribe((x:any)=>{
       this.panZoomLevel = x;
     })
   }
-  zoomOut(){
-    this.panZoomLevel =this.panZoomLevel+1
-    this.viewTileService.setZoomLevel(this.panZoomLevel);
-  }
-
-  zoomIn(){
-    if (this.panZoomLevel > 1)
-      this.panZoomLevel =this.panZoomLevel-1
-    this.viewTileService.setZoomLevel(this.panZoomLevel);
-    console.log(this.panZoomLevel)
-  }
-
-  resetZoom(){
-    this.viewTileService.setZoomLevel(this.defaultZoomLevel);
-    this.viewTileService.defaultZoom(true);
-  }
 }
+//   zoomOut(){
+//     this.panZoomLevel =this.panZoomLevel+1
+//     this.viewTileService.setZoomLevel(this.panZoomLevel);
+//   }
+
+//   zoomIn(){
+//     if (this.panZoomLevel > 1)
+//       this.panZoomLevel =this.panZoomLevel-1
+//     this.viewTileService.setZoomLevel(this.panZoomLevel);
+//     console.log(this.panZoomLevel)
+//   }
+
+//   resetZoom(){
+//     this.viewTileService.setZoomLevel(this.defaultZoomLevel);
+//     this.viewTileService.defaultZoom(true);
+//   }
+// }

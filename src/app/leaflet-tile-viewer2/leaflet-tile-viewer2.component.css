@@ -1,0 +1,5 @@
+:host {
+    display: block;
+    width:100%;  /* or 100% if flex is handling the layout */
+    height: 100%;
+  }
