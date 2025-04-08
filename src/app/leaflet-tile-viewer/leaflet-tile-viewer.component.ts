@@ -19,10 +19,6 @@ export class LeafletTileViewerComponent implements OnInit,AfterViewInit {
 
   tileInit(){
     const mapContainer = document.getElementById('map-a');
-    if (!mapContainer) {
-      console.error('❌ map-a container not found in DOM');
-      return;
-    }
     this.map = L.map("map-a",{
       zoomControl: false,
       attributionControl: false,
