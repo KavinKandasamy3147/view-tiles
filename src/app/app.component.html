@@ -1,6 +1,4 @@
-  <!-- <mat-icon (click)="zoomIn()" style="font-size: 30px;">zoom_in</mat-icon>
-  <mat-icon (click)="zoomOut()" style="font-size: 30px;">zoom_out</mat-icon>
-  <mat-icon (click)="resetZoom()" style="font-size: 28px;">  refresh</mat-icon>
+  <!-- 
 
 
 <mat-grid-list  cols="2" rowHeight="96vh" gutterSize="10px">
@@ -11,12 +9,12 @@
     <app-view-tile2 class="tile-canvas"></app-view-tile2>
   </mat-grid-tile>
 </mat-grid-list> -->
-<div class="row">
-  <div class="col"></div>
-  <div class="col"></div>
-</div>
+<mat-icon (click)="zoomIn()" style="font-size: 30px;">zoom_in</mat-icon>
+<mat-icon (click)="zoomOut()" style="font-size: 30px;">zoom_out</mat-icon>
+<mat-icon (click)="resetZoom()" style="font-size: 28px;">  refresh</mat-icon>
 
-<div style="display: flex; height: 100vh;">
+
+<div style="display: flex; height: 92vh;">
   <app-leaflet-tile-viewer></app-leaflet-tile-viewer>
   <app-leaflet-tile-viewer2></app-leaflet-tile-viewer2>
 </div>

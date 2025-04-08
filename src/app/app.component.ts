@@ -9,6 +9,7 @@ import { ViewTileService } from './service/view-tile1.service';
 export class AppComponent implements OnInit{
   panZoomLevel!:number;
   defaultZoomLevel=5;
+  dragReset={ lat: 65, lng: -50}
   constructor(private viewTileService: ViewTileService ){
   }
   ngOnInit(){
@@ -16,21 +17,20 @@ export class AppComponent implements OnInit{
       this.panZoomLevel = x;
     })
   }
+
+  zoomOut(){
+    this.panZoomLevel =this.panZoomLevel-1
+    this.viewTileService.setZoomLevel(this.panZoomLevel);
+  }
+
+  zoomIn(){
+      this.panZoomLevel =this.panZoomLevel+1
+    this.viewTileService.setZoomLevel(this.panZoomLevel);
+    console.log(this.panZoomLevel)
+  }
+
+  resetZoom(){
+    this.viewTileService.setMapCenter(this.dragReset);
+    this.viewTileService.setZoomLevel(1);
+  }
 }
-//   zoomOut(){
-//     this.panZoomLevel =this.panZoomLevel+1
-//     this.viewTileService.setZoomLevel(this.panZoomLevel);
-//   }
-
-//   zoomIn(){
-//     if (this.panZoomLevel > 1)
-//       this.panZoomLevel =this.panZoomLevel-1
-//     this.viewTileService.setZoomLevel(this.panZoomLevel);
-//     console.log(this.panZoomLevel)
-//   }
-
-//   resetZoom(){
-//     this.viewTileService.setZoomLevel(this.defaultZoomLevel);
-//     this.viewTileService.defaultZoom(true);
-//   }
-// }
