@@ -60,5 +60,20 @@ export class LeafletTileViewerComponent implements OnInit,AfterViewInit {
         this.internalUpdate = false;
       }
     });
+
+  this.map.on('moveend', () => {
+    const center = this.map.getCenter(); // {lat, lng}
+    this.internalUpdate = true;
+    this.sharedService.setMapCenter(center); // pass center to shared service
+  });
+
+  this.sharedService.mapCenter$.subscribe((center) => {
+    const currentCenter = this.map.getCenter();
+    if (!this.internalUpdate &&
+        (currentCenter.lat !== center.lat || currentCenter.lng !== center.lng)) {
+      this.map.setView(center);
+    }
+    this.internalUpdate = false;
+  });
   }
 }
